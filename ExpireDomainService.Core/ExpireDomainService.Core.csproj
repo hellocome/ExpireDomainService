@@ -40,13 +40,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scheduler\ICheckPoint.cs" />
     <Compile Include="Scheduler\SchedulerThread.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scheduler\CheckPoint\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ExpireDomainService.Common\ExpireDomainService.Common.csproj">
+      <Project>{93db4e6c-059a-4c9d-9eff-85ea5aa3f5a7}</Project>
+      <Name>ExpireDomainService.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ServiceConfiguration.xml">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using ExpireDomainService.Common.Logging;
 
 namespace ExpireDomainService.Core.Schedule
 {
