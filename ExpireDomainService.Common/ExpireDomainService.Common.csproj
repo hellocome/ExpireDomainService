@@ -44,8 +44,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Reflection\ObjectHelper.cs" />
+    <Content Include="LoggerConfiguration.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Compile Include="Logging\ConsoleLogger.cs" />
     <Compile Include="Logging\ILogger.cs" />
+    <Compile Include="Logging\Log4netLogger.cs" />
+    <Compile Include="Logging\LoggerBase.cs" />
+    <Compile Include="Logging\LoggerConfiguration.cs" />
     <Compile Include="Logging\LoggerFactory.cs" />
+    <Compile Include="Logging\LogLevel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
