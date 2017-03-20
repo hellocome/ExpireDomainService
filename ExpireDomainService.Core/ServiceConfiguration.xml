@@ -1,4 +1,8 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <Configuration>
-  <Logger module="CommonConverters.dll" class="ExpireDomainService.Common.ConsoleLogger" IsDebugOn ="true"/>
+  <Scheduler>
+    <CheckPoints>
+      <CheckPoint type=""/>
+    </CheckPoints>
+  </Scheduler>
 </Configuration>

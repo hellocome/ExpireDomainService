@@ -4,17 +4,37 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DHLParcelShopFinder.Schedule.CheckPoint
+namespace ExpireDomainService.Core.Schedule.CheckPoint
 {
     public sealed class WeekDayCheckPoint : ICheckPoint
     {
         private object locker = new object();
+
+        public bool RunOnce
+        {
+            get;
+            private set;
+        }
+
+        public bool Finished
+        {
+            get;
+            private set;
+        }
+
         public int Hour
         {
             get;
             private set;
         }
+
         public int Minute
+        {
+            get;
+            private set;
+        }
+
+        public int Second
         {
             get;
             private set;
@@ -42,34 +62,39 @@ namespace DHLParcelShopFinder.Schedule.CheckPoint
         // dayOfWeekString = Sunday
         // hourMinutesString = "23:15" means 11:15pm
         // hourMinutesString = "6:15"  means 6:15am
-        public WeekDayCheckPoint(string dayOfWeekString, string hourMinutesString)
+        public WeekDayCheckPoint(string dayOfWeekString, string hourMinutesString, bool runOnce = false)
         {
             DayOfWeek dayOfWeek = (DayOfWeek)Enum.Parse(typeof(DayOfWeek), dayOfWeekString, true);
-            string[] hm = hourMinutesString.Trim().Split(new char[] { ':' }, 2, StringSplitOptions.RemoveEmptyEntries);
+            string[] hm = hourMinutesString.Trim().Split(new char[] { ':' }, 3, StringSplitOptions.RemoveEmptyEntries);
             int hour = int.Parse(hm[0]);
             int minutes = int.Parse(hm[1]);
+            int seconds = int.Parse(hm[2]);
 
             Hour = hour;
             Minute = minutes;
+            Second = seconds;
             DayOfWeek = dayOfWeek;
+            RunOnce = runOnce;
 
-            if (!(hour >= 0 && hour <= 23) || !(minutes >= 0 && minutes <= 59))
+            if (!(hour >= 0 && hour <= 23) || !(minutes >= 0 && minutes <= 59) || !(Second >= 0 && Second <= 59))
             {
-                throw new ArgumentException("Invalid argument: The minute component, expressed as a value between 0 and 59, " +
+                throw new ArgumentException("Invalid argument: The minute and seconds component, expressed as a value between 0 and 59, " +
                     "The hour component, expressed as a value between 0 and 23");
             }
+
+
 
             Update();
         }
 
-        public WeekDayCheckPoint(DayOfWeek dayOfWeek, int hour, int minutes)
+        public WeekDayCheckPoint(DayOfWeek dayOfWeek, int hour, int minutes, int seconds, bool runOnce = false)
         {
             Hour = hour;
             Minute = minutes;
             DayOfWeek = dayOfWeek;
-            
+            RunOnce = runOnce;
 
-            if (!(hour >= 0 && hour <= 23) || !(minutes >= 0 && minutes <= 59))
+            if (!(hour >= 0 && hour <= 23) || !(minutes >= 0 && minutes <= 59) || !(Second >= 0 && Second <= 59))
             {
                 throw new ArgumentException("Invalid argument: The minute component, expressed as a value between 0 and 59, " + 
                     "The hour component, expressed as a value between 0 and 23");
@@ -82,11 +107,20 @@ namespace DHLParcelShopFinder.Schedule.CheckPoint
         {
             lock (locker)
             {
-                // nextCheckPointDatetime will always > Now
-                if (nextCheckPointDatetime <= DateTime.Now)
+                // Already finish, so check failed!
+                // nextCheckPointDatetime will always > Now if the check point is not finished
+                if (!Finished && nextCheckPointDatetime <= DateTime.Now)
                 {
-                    Update();
-                    return true;
+                    if (!RunOnce)
+                    {
+                        Update();
+                        return true;
+                    }
+                    else
+                    {
+                        Finished = true;
+                        return true;
+                    }
                 }
                 
                 return false;

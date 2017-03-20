@@ -4,12 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DHLParcelShopFinder.Schedule
+namespace ExpireDomainService.Core.Schedule
 {
     public interface ICheckPoint
     {
         bool Check();
 
         void Update();
+
+        bool Finished { get; }
     }
 }
