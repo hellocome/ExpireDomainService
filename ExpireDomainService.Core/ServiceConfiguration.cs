@@ -16,27 +16,32 @@ namespace ExpireDomainService.Core
     public class ServiceConfiguration
     {
         public static readonly string CONFIGURATION_FILE = "ServiceConfiguration.xml";
-        private static ServiceConfiguration instance = new ServiceConfiguration();
         private static List<ICheckPoint> checkPoints = new List<ICheckPoint>();
         private static int checkInterval;
         private static ILoader<ExpireDomainName> domainLoader;
-
-
         private static List<IFilter<ExpireDomainName>> globalDomainLoadFilter = new List<IFilter<ExpireDomainName>>();
         private static List<IFilter<ExpireDomainName>> cacheFilter = new List<IFilter<ExpireDomainName>>();
        
+        private class Holder
+        {
+            public static ServiceConfiguration instance = new ServiceConfiguration();
+
+            static Holder()
+            {
+                instance.LoadConfiguration();
+            }
+        }
 
         public static ServiceConfiguration Instance
         {
             get
             {
-                return instance;
+                return Holder.instance;
             }
         }
 
         private ServiceConfiguration()
         {
-            LoadConfiguration();
         }
 
         private void LoadConfiguration()
@@ -139,10 +144,7 @@ namespace ExpireDomainService.Core
             try
             {
                 checkPoints.Clear();
-
                 checkInterval = GetValueInt(doc, "Configuration/Scheduler", "checkInterval", 60, 20, 120);
-
-       
                 XmlNodeList nodeList = doc.SelectNodes("Configuration/Scheduler/CheckPoints/CheckPoint");
 
                 foreach (XmlNode node in nodeList)

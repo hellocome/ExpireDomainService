@@ -36,7 +36,7 @@ namespace ExpireDomainService.Core.Domains
 
             foreach(IFilter<ExpireDomainName> cacheFilter in cacheFilters)
             {
-                if (CacheDictionary.ContainsKey(cacheFilter.UID))
+                if (!CacheDictionary.ContainsKey(cacheFilter.UID))
                 {
                     CacheDictionary[cacheFilter.UID] = new PagedSet<ExpireDomainName>();
                 }
@@ -46,16 +46,19 @@ namespace ExpireDomainService.Core.Domains
             {
                 ExpireDomainName domainName = mLoader.Next();
 
-                if (ApplyGlobalDomainLoadFilter(domainName))
+                if (domainName != null)
                 {
-                    global.Add(domainName);
-                }
-
-                foreach (IFilter<ExpireDomainName> cacheFilter in cacheFilters)
-                {
-                    if (cacheFilter.Decide(domainName))
+                    if (ApplyGlobalDomainLoadFilter(domainName))
                     {
-                        CacheDictionary[cacheFilter.UID].Add(domainName);
+                        global.Add(domainName);
+                    }
+
+                    foreach (IFilter<ExpireDomainName> cacheFilter in cacheFilters)
+                    {
+                        if (cacheFilter.Decide(domainName))
+                        {
+                            CacheDictionary[cacheFilter.UID].Add(domainName);
+                        }
                     }
                 }
             }

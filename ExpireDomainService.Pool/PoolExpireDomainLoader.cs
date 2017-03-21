@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
-
+using ExpireDomainService.Common.Logging;
 using ExpireDomainService.Common.Utilities;
 using ExpireDomainService.Pool.Http;
 using ExpireDomainService.Core.Domains;
@@ -70,9 +70,16 @@ namespace ExpireDomainService.Pool
 
                 string[] contents = line.Split(new char[] { ',' });
 
-                if(contents != null && contents.Length >=2)
+                if (contents != null && contents.Length >= 2)
                 {
-                    return new ExpireDomainName(contents[0], contents[1]);
+                    try
+                    {
+                        return new ExpireDomainName(contents[0], contents[1]);
+                    }
+                    catch (Exception)
+                    {
+                        Logger.Instance.Error("Bad Domain: " + line);
+                    }
                 }
 
                 return null;

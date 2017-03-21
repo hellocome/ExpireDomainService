@@ -1,4 +1,4 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <Configuration>
-  <Logger module="CommonConverters.dll" class="ExpireDomainService.Common.ConsoleLogger" IsDebugOn ="true"/>
+  <Logger module="ExpireDomainService.Common.dll" class="ExpireDomainService.Common.Logging.ConsoleLogger" IsDebugOn ="true"/>
 </Configuration>

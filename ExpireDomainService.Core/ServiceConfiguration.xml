@@ -21,9 +21,9 @@
       <Filter uid="GlobalDomainNameLengthLoadFilter" module="ExpireDomainService.Core.dll" class="ExpireDomainService.Core.Domains.Filter.GlobalDomainNameLengthLoadFilter" parameter ="0;8"/>
     </GlobaleFilter>
     <CacheFilter>
-      <Filter uid="Length_3" module="ExpireDomainService.Core.dll" class="ExpireDomainService.Core.Domains.Filter.CacheFilters.DomainNameLengthFilter" parameter ="3"/>
-      <Filter uid="Length_4" module="ExpireDomainService.Core.dll" class="ExpireDomainService.Core.Domains.Filter.CacheFilters.DomainNameLengthFilter" parameter ="4"/>
-      <Filter uid="Length_5" module="ExpireDomainService.Core.dll" class="ExpireDomainService.Core.Domains.Filter.CacheFilters.DomainNameLengthFilter" parameter ="5"/>
+      <Filter uid="Length_3" module="ExpireDomainService.Core.dll" class="ExpireDomainService.Core.Domains.Filter.CacheFilters.LengthRestrictedCacheFilter" parameter ="3"/>
+      <Filter uid="Length_4" module="ExpireDomainService.Core.dll" class="ExpireDomainService.Core.Domains.Filter.CacheFilters.LengthRestrictedCacheFilter" parameter ="4"/>
+      <Filter uid="Length_5" module="ExpireDomainService.Core.dll" class="ExpireDomainService.Core.Domains.Filter.CacheFilters.LengthRestrictedCacheFilter" parameter ="5"/>
 
       <Filter uid="Length_Short_Digits" module="ExpireDomainService.Core.dll" class="ExpireDomainService.Core.Domains.Filter.CacheFilters.RegexDomainNameCacheFilter" parameter ="[0-9]{3,5}"/>
       <Filter uid="Length_Short" module="ExpireDomainService.Core.dll" class="ExpireDomainService.Core.Domains.Filter.CacheFilters.RegexDomainNameCacheFilter" parameter ="[0-9a-zA-Z]{3,5}"/>
