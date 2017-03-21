@@ -17,6 +17,21 @@ namespace ExpireDomainService.Common.Logging
         {
             string typeOfLog = GetLogLevelString(type);
 
+            switch (type)
+            {
+                case LogLevel.Info:
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    break;
+                case LogLevel.Debug:
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    break;
+                case LogLevel.Error:
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    break;
+                case LogLevel.Warning:
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    break;
+            }
             Console.WriteLine(string.Format("{0} {1:-10} {2}", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:fff"), typeOfLog, message));
         }
     }
