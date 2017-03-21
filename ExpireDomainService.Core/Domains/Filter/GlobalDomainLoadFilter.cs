@@ -22,7 +22,7 @@ namespace ExpireDomainService.Core.Domains.Filter
 
         public override bool Decide(ExpireDomainName item)
         {
-            if (this.StringParameters.Contains(item.Domain))
+            if (this.StringParameters.Contains(item.TLD))
             {
                 return true;
             }
