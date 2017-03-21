@@ -2,15 +2,21 @@
 <Configuration>
   <Scheduler checkInterval="60">
     <CheckPoints>
-      <CheckPoint module="ExpireDomainService.Core.dll" class="ExpireDomainService.Core.Schedule.CheckPoint.WeekDayCheckPoint" parameter ="Sunday:06:10:20:false"/>
-      <CheckPoint module="ExpireDomainService.Core.dll" class="ExpireDomainService.Core.Schedule.CheckPoint.WeekDayCheckPoint" parameter ="Monday:06:10:20"/>
-      <CheckPoint module="ExpireDomainService.Core.dll" class="ExpireDomainService.Core.Schedule.CheckPoint.WeekDayCheckPoint" parameter ="Tuesday:06:10:20"/>
-      <CheckPoint module="ExpireDomainService.Core.dll" class="ExpireDomainService.Core.Schedule.CheckPoint.WeekDayCheckPoint" parameter ="Wednesday:06:10:20:false"/>
-      <CheckPoint module="ExpireDomainService.Core.dll" class="ExpireDomainService.Core.Schedule.CheckPoint.WeekDayCheckPoint" parameter ="Thursday:06:10:20:false"/>
-      <CheckPoint module="ExpireDomainService.Core.dll" class="ExpireDomainService.Core.Schedule.CheckPoint.WeekDayCheckPoint" parameter ="Friday:06:10:20:false"/>
-      <CheckPoint module="ExpireDomainService.Core.dll" class="ExpireDomainService.Core.Schedule.CheckPoint.WeekDayCheckPoint" parameter ="Saturday:06:10:20:false"/>
-      <CheckPoint module="ExpireDomainService.Core.dll" class="ExpireDomainService.Core.Schedule.CheckPoint.RunOnServiceStartCheckPoint" parameter =""/>
-
+      <CheckPoint module="ExpireDomainService.Common.dll" class="ExpireDomainService.Common.Schedule.CheckPoint.WeekDayCheckPoint" parameter ="Sunday:06:10:20:false"/>
+      <CheckPoint module="ExpireDomainService.Common.dll" class="ExpireDomainService.Common.Schedule.CheckPoint.WeekDayCheckPoint" parameter ="Monday:06:10:20"/>
+      <CheckPoint module="ExpireDomainService.Common.dll" class="ExpireDomainService.Common.Schedule.CheckPoint.WeekDayCheckPoint" parameter ="Tuesday:06:10:20"/>
+      <CheckPoint module="ExpireDomainService.Common.dll" class="ExpireDomainService.Common.Schedule.CheckPoint.WeekDayCheckPoint" parameter ="Wednesday:06:10:20:false"/>
+      <CheckPoint module="ExpireDomainService.Common.dll" class="ExpireDomainService.Common.Schedule.CheckPoint.WeekDayCheckPoint" parameter ="Thursday:06:10:20:false"/>
+      <CheckPoint module="ExpireDomainService.Common.dll" class="ExpireDomainService.Common.Schedule.CheckPoint.WeekDayCheckPoint" parameter ="Friday:06:10:20:false"/>
+      <CheckPoint module="ExpireDomainService.Common.dll" class="ExpireDomainService.Common.Schedule.CheckPoint.WeekDayCheckPoint" parameter ="Saturday:06:10:20:false"/>
+      <CheckPoint module="ExpireDomainService.Common.dll" class="ExpireDomainService.Common.Schedule.CheckPoint.RunOnServiceStartCheckPoint" parameter =""/>
     </CheckPoints>
   </Scheduler>
+  <Filters>
+    <GlobaleFilter>
+      <Filter module="ExpireDomainService.Core.dll" class="ExpireDomainService.Core.Domains.Filter.GlobalDomainLoadFilter" parameter =".com;.net;.cn;.org"/>
+      <Filter module="ExpireDomainService.Core.dll" class="ExpireDomainService.Core.Domains.Filter.GlobalDomainLoadFilter" parameter =".com;.net;.cn;.org"/>
+
+    </GlobaleFilter>
+  </Filters>
 </Configuration>

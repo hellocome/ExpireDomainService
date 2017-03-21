@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExpireDomainService.Core.Schedule.CheckPoint
+namespace ExpireDomainService.Common.Schedule.CheckPoint
 {
     public abstract class RunOnceCheckPoint : ICheckPoint
     {

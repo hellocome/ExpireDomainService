@@ -17,15 +17,16 @@ namespace ExpireDomainService.Common.Reflection
             return implObj as T;
         }
 
-        public static T CreateFrom<T>(string assemblyPath, string implementationClass) where T : class
-        {
-            return Activator.CreateInstanceFrom(assemblyPath, implementationClass).Unwrap() as T;
-        }
-
         public static T Create<T>(string assemblyName, string implementationClass) where T : class
         {
             string fullPath = AppDomain.CurrentDomain.BaseDirectory + System.IO.Path.DirectorySeparatorChar + assemblyName;
             return Activator.CreateInstanceFrom(fullPath, implementationClass).Unwrap() as T;
+        }
+
+        public static T Create<T>(string assemblyName, string implementationClass, params object[] args) where T : class
+        {
+            string fullPath = AppDomain.CurrentDomain.BaseDirectory + System.IO.Path.DirectorySeparatorChar + assemblyName;
+            return CreateFrom<T>(assemblyName, implementationClass, args);
         }
 
         public static T CreateFrom<T>(string assemblyPath, string implementationClass, params object[] args) where T : class
@@ -36,11 +37,9 @@ namespace ExpireDomainService.Common.Reflection
             return Activator.CreateInstance(type, args) as T;
         }
 
-        public static T Create<T>(string assemblyName, string implementationClass, params object[] args) where T : class
+        public static T CreateFrom<T>(string assemblyPath, string implementationClass) where T : class
         {
-            string fullPath = AppDomain.CurrentDomain.BaseDirectory + System.IO.Path.DirectorySeparatorChar + assemblyName;
-            return CreateFrom<T>(assemblyName, implementationClass, args);
+            return Activator.CreateInstanceFrom(assemblyPath, implementationClass).Unwrap() as T;
         }
-
     }
 }

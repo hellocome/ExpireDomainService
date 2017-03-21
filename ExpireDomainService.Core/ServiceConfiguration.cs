@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
-using ExpireDomainService.Core.Schedule;
+using ExpireDomainService.Common.Schedule;
 using ExpireDomainService.Common.Logging;
 using ExpireDomainService.Common.Reflection;
 

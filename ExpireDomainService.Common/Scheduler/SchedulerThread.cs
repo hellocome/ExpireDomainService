@@ -2,7 +2,7 @@
 using System.Threading;
 using ExpireDomainService.Common.Logging;
 
-namespace ExpireDomainService.Core.Schedule
+namespace ExpireDomainService.Common.Schedule
 {
     public abstract class SchedulerThread
     {
