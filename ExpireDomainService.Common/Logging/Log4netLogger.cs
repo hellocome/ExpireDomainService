@@ -15,6 +15,7 @@ namespace ExpireDomainService.Common.Logging
         {
             // Throw exception if failed. so that the object will be null 
             logger.Debug("Init...");
+            logger.Debug("IsDebugEnabled:" + logger.IsDebugEnabled);
         }
 
         protected override void WriteLine(LogLevel level, String log)
