@@ -52,13 +52,14 @@ namespace ExpireDomainService.Core.Domains
                     if (ApplyGlobalDomainLoadFilter(domainName))
                     {
                         global.Add(domainName);
-                    }
 
-                    foreach (IFilter<ExpireDomainName> cacheFilter in cacheFilters)
-                    {
-                        if (cacheFilter.Decide(domainName))
+                        // Only when global accept the domain
+                        foreach (IFilter<ExpireDomainName> cacheFilter in cacheFilters)
                         {
-                            CacheDictionary[cacheFilter.UID].Add(domainName);
+                            if (cacheFilter.Decide(domainName))
+                            {
+                                CacheDictionary[cacheFilter.UID].Add(domainName);
+                            }
                         }
                     }
                 }
