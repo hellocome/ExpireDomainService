@@ -32,6 +32,7 @@ namespace ExpireDomainService.Common.Logging
                     Console.ForegroundColor = ConsoleColor.Yellow;
                     break;
             }
+
             Console.WriteLine(string.Format("{0} {1:-10} {2}", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:fff"), typeOfLog, message));
         }
     }
