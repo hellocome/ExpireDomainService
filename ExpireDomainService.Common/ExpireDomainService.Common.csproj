@@ -60,6 +60,9 @@
     <Compile Include="Scheduler\SchedulerThread.cs" />
     <Compile Include="Utilities\FileHelper.cs" />
     <Compile Include="Utilities\Temp.cs" />
+    <None Include="log4net.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="LoggerConfiguration.xml">
       <SubType>Designer</SubType>
     </Content>
