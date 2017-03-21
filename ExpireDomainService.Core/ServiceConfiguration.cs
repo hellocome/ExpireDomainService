@@ -7,6 +7,8 @@ using System.Xml;
 using ExpireDomainService.Common.Schedule;
 using ExpireDomainService.Common.Logging;
 using ExpireDomainService.Common.Reflection;
+using ExpireDomainService.Common.Filter;
+using ExpireDomainService.Core.Domains;
 
 namespace ExpireDomainService.Core
 {
@@ -16,6 +18,9 @@ namespace ExpireDomainService.Core
         private static ServiceConfiguration instance = new ServiceConfiguration();
         private static List<ICheckPoint> checkPoints = new List<ICheckPoint>();
         private static int checkInterval;
+
+        private static List<IFilter<ExpireDomainName>> globalDomainLoadFilter = new List<IFilter<ExpireDomainName>>();
+        private static List<IFilter<ExpireDomainName>> cacheFilter = new List<IFilter<ExpireDomainName>>();
 
         public static ServiceConfiguration Instance
         {
@@ -40,6 +45,8 @@ namespace ExpireDomainService.Core
                 doc.Load(localConfiguration);
 
                 LoadSchedule(doc);
+
+                LoadFilters(doc);
             }
             catch (Exception ex)
             {
@@ -47,6 +54,60 @@ namespace ExpireDomainService.Core
             }
         }
 
+        private void LoadFilters(XmlDocument doc)
+        {
+            try
+            {
+                globalDomainLoadFilter.Clear();
+                cacheFilter.Clear();
+
+                XmlNodeList nodeList = doc.SelectNodes("Configuration/Filters/GlobaleFilter/Filter");
+
+                foreach (XmlNode node in nodeList)
+                {
+                    XmlElement ele = node as XmlElement;
+                    String suid = ele.GetAttribute("uid");
+                    String sModule = ele.GetAttribute("module");
+                    String sClass = ele.GetAttribute("class");
+                    String sParameter = ele.GetAttribute("parameter");
+
+                    Logger.Instance.Info("Loading Filter: Module={0} Class={1} Parameter={2}", sModule, sClass, sParameter);
+
+                    AbstractFilter<ExpireDomainName> filter = ObjectHelper.Create<AbstractFilter<ExpireDomainName>>(sModule, sClass, sParameter);
+                    filter.UID = suid;
+
+                    if (filter != null)
+                    {
+                        globalDomainLoadFilter.Add(filter);
+                    }
+                }
+
+                nodeList = doc.SelectNodes("Configuration/Filters/CacheFilter/Filter");
+
+                foreach (XmlNode node in nodeList)
+                {
+                    XmlElement ele = node as XmlElement;
+                    String suid = ele.GetAttribute("uid");
+                    String sModule = ele.GetAttribute("module");
+                    String sClass = ele.GetAttribute("class");
+                    String sParameter = ele.GetAttribute("parameter");
+
+                    Logger.Instance.Info("Loading Filter: Module={0} Class={1} Parameter={2}", sModule, sClass, sParameter);
+
+                    AbstractFilter<ExpireDomainName> filter = ObjectHelper.Create<AbstractFilter<ExpireDomainName>>(sModule, sClass, sParameter);
+                    filter.UID = suid;
+
+                    if (filter != null)
+                    {
+                        cacheFilter.Add(filter);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Instance.Error("Fail to LoadSchedule", ex);
+            }
+        }
 
         private void LoadSchedule(XmlDocument doc)
         {
@@ -87,6 +148,22 @@ namespace ExpireDomainService.Core
             get
             {
                 return checkPoints;
+            }
+        }
+
+        public List<IFilter<ExpireDomainName>> GlobalDomainLoadFilter
+        {
+            get
+            {
+                return globalDomainLoadFilter;
+            }
+        }
+
+        public List<IFilter<ExpireDomainName>> CacheFilter
+        {
+            get
+            {
+                return cacheFilter;
             }
         }
 

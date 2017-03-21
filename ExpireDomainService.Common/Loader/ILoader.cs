@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExpireDomainService.Core.Domains
+namespace ExpireDomainService.Common.Loader
 {
-    public class DomainNameLoader
+    public interface ILoader<T> : IDisposable
     {
+        bool HasNext();
 
+        T Next();
     }
 }

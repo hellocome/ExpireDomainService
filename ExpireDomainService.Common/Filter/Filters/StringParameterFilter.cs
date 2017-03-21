@@ -6,22 +6,13 @@ using System.Threading.Tasks;
 
 namespace ExpireDomainService.Common.Filter.Filters
 {
-    public abstract class StringParameterFilter<T> : IFilter<T>
+    public abstract class StringParameterFilter<T> : AbstractFilter<T>
     {
-        // Optional
-        public string UID
-        {
-            get;
-            protected set;
-        }
-
         public IList<String> StringParameters
         {
             get;
             protected set;
         }
-
-        public abstract bool Decide(T item);
 
         public StringParameterFilter(String parameter)
         {
