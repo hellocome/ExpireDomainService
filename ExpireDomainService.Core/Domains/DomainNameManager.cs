@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ExpireDomainService.Common.Loader;
 using ExpireDomainService.Common.Filter;
 using ExpireDomainService.Common.Collection;
+using ExpireDomainService.Common.Logging;
 
 namespace ExpireDomainService.Core.Domains
 {
@@ -64,6 +65,11 @@ namespace ExpireDomainService.Core.Domains
             }
 
             CacheDictionary[GLOBAL] = global;
+
+            foreach (string uid in CacheDictionary.Keys)
+            {
+                Logger.Instance.Info("Cache [{0}] = {1}", uid, CacheDictionary[uid].Count);
+            }
         }
 
         private bool ApplyGlobalDomainLoadFilter(ExpireDomainName item)
