@@ -13,10 +13,22 @@
     </CheckPoints>
   </Scheduler>
   <Filters>
+    <!-- Separate the parameter by ; space will be removed -->
     <GlobaleFilter>
-      <Filter module="ExpireDomainService.Core.dll" class="ExpireDomainService.Core.Domains.Filter.GlobalDomainLoadFilter" parameter =".com;.net;.cn;.org"/>
-      <Filter module="ExpireDomainService.Core.dll" class="ExpireDomainService.Core.Domains.Filter.GlobalDomainLoadFilter" parameter =".com;.net;.cn;.org"/>
-
+      <Filter uid="GlobalDomainLoadFilter" module="ExpireDomainService.Core.dll" class="ExpireDomainService.Core.Domains.Filter.GlobalDomainLoadFilter" parameter =".com;.net;.cn;.org"/>
+      <!-- MinLength;MaxLength -->
+      <!-- if one number, it will use the  MinLength=MaxLength=vale -->
+      <Filter uid="GlobalDomainNameLengthLoadFilter" module="ExpireDomainService.Core.dll" class="ExpireDomainService.Core.Domains.Filter.GlobalDomainNameLengthLoadFilter" parameter ="0;8"/>
     </GlobaleFilter>
+    <CacheFilter>
+      <Filter uid="Length_3" module="ExpireDomainService.Core.dll" class="ExpireDomainService.Core.Domains.Filter.CacheFilters.DomainNameLengthFilter" parameter ="3"/>
+      <Filter uid="Length_4" module="ExpireDomainService.Core.dll" class="ExpireDomainService.Core.Domains.Filter.CacheFilters.DomainNameLengthFilter" parameter ="4"/>
+      <Filter uid="Length_5" module="ExpireDomainService.Core.dll" class="ExpireDomainService.Core.Domains.Filter.CacheFilters.DomainNameLengthFilter" parameter ="5"/>
+
+      <Filter uid="Length_Short_Digits" module="ExpireDomainService.Core.dll" class="ExpireDomainService.Core.Domains.Filter.CacheFilters.RegexDomainNameCacheFilter" parameter ="[0-9]{3,5}"/>
+      <Filter uid="Length_Short" module="ExpireDomainService.Core.dll" class="ExpireDomainService.Core.Domains.Filter.CacheFilters.RegexDomainNameCacheFilter" parameter ="[0-9a-zA-Z]{3,5}"/>
+      <Filter uid="Length_Short_Digits_COM" module="ExpireDomainService.Core.dll" class="ExpireDomainService.Core.Domains.Filter.CacheFilters.RegexFullDomainCacheFilter" parameter ="[0-9]{3,5}\.com"/>
+      <Filter uid="Length_Short_COM" module="ExpireDomainService.Core.dll" class="ExpireDomainService.Core.Domains.Filter.CacheFilters.RegexFullDomainCacheFilter" parameter ="[0-9a-zA-Z]{3,5}\.com"/>
+    </CacheFilter>
   </Filters>
 </Configuration>

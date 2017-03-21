@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Filter\Filters\RegexFilter.cs" />
     <Compile Include="Filter\Filters\StringParameterFilter.cs" />
     <Compile Include="Filter\IFilter.cs" />
     <Compile Include="Filter\IFilterable.cs" />

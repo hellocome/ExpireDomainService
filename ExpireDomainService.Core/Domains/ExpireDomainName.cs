@@ -10,6 +10,12 @@ namespace ExpireDomainService.Core.Domains
 {
     public sealed class ExpireDomainName : DomainParser.Library.DomainName
     {
+        public string FullDomainName
+        {
+            get;
+            private set;
+        }
+
         public DateTime ExpireDate
         {
             get;
@@ -34,6 +40,7 @@ namespace ExpireDomainService.Core.Domains
 
         public ExpireDomainName(String fullDomainName, String expireDate) : base(fullDomainName)
         {
+            FullDomainName = fullDomainName;
             ExpireDate = DateTime.Parse(expireDate, CultureInfo.GetCultureInfo("en-us"));
         }
     }

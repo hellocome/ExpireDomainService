@@ -8,6 +8,11 @@ namespace ExpireDomainService.Common.Filter
 {
     public interface IFilter<T>
     {
+        string UID
+        {
+            get;
+        }
+
         bool Decide(T item);
     }
 }

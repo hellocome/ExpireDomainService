@@ -8,9 +8,17 @@ namespace ExpireDomainService.Common.Filter.Filters
 {
     public abstract class StringParameterFilter<T> : IFilter<T>
     {
+        // Optional
+        public string UID
+        {
+            get;
+            protected set;
+        }
+
         public IList<String> StringParameters
         {
             get;
+            protected set;
         }
 
         public abstract bool Decide(T item);

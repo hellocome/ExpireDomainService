@@ -55,6 +55,10 @@
   <ItemGroup>
     <Compile Include="Domains\DomainNameLoader.cs" />
     <Compile Include="Domains\ExpireDomainName.cs" />
+    <Compile Include="Domains\Filter\CacheFilters\RegexDomainNameCacheFilter.cs" />
+    <Compile Include="Domains\Filter\CacheFilters\RegexFullDomainCacheFilter.cs" />
+    <Compile Include="Domains\Filter\CacheFilters\LengthRestrictedCacheFilter.cs" />
+    <Compile Include="Domains\Filter\DomainNameLengthFilter.cs" />
     <Compile Include="Domains\Filter\GlobalDomainNameLengthLoadFilter.cs" />
     <Compile Include="Domains\Filter\GlobalDomainLoadFilter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

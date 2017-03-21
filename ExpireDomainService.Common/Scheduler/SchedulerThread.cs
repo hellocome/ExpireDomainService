@@ -6,13 +6,15 @@ namespace ExpireDomainService.Common.Schedule
 {
     public abstract class SchedulerThread
     {
+        private readonly int checkInterval;
         protected Thread thread = null;
         protected volatile bool KeepRunning = true;
         protected EventWaitHandle mWaitHandle = new EventWaitHandle(false, EventResetMode.ManualReset);
         protected object locker = new object();
 
-        public SchedulerThread()
+        public SchedulerThread(int interval)
         {
+            checkInterval = interval;
             thread = new Thread(new ThreadStart(Run));
             thread.IsBackground = false;
         }
@@ -83,7 +85,7 @@ namespace ExpireDomainService.Common.Schedule
                         if (KeepRunning)
                         {
                             Logger.Instance.Debug("--> SchedulerThread.Sleep()");
-                            Monitor.Wait(locker, TimeSpan.FromMilliseconds(ServiceConfiguration.Instance.CheckInterval));
+                            Monitor.Wait(locker, TimeSpan.FromMilliseconds(checkInterval));
                             Logger.Instance.Debug("--> SchedulerThread.Sleep.Done()");
                         }
                     }
