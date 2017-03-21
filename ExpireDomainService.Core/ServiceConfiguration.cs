@@ -4,14 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using ExpireDomainService.Core.Schedule;
+using ExpireDomainService.Common.Logging;
 using ExpireDomainService.Common.Reflection;
 
-namespace ExpireDomainService.Common.Logging
+namespace ExpireDomainService.Core
 {
     public class ServiceConfiguration
     {
         public static readonly string CONFIGURATION_FILE = "ServiceConfiguration.xml";
         private static ServiceConfiguration instance = new ServiceConfiguration();
+        private static List<ICheckPoint> checkPoints = new List<ICheckPoint>();
+        private static int checkInterval;
 
         public static ServiceConfiguration Instance
         {
@@ -23,10 +27,10 @@ namespace ExpireDomainService.Common.Logging
 
         private ServiceConfiguration()
         {
-            Load();
+            LoadConfiguration();
         }
 
-        private void Load()
+        private void LoadConfiguration()
         {
             try
             {
@@ -35,65 +39,117 @@ namespace ExpireDomainService.Common.Logging
                 XmlDocument doc = new XmlDocument();
                 doc.Load(localConfiguration);
 
-                XmlElement ele = (doc.SelectSingleNode("Configuration/Logger") as XmlElement);
+                LoadSchedule(doc);
+            }
+            catch (Exception ex)
+            {
+                Logger.Instance.Error("Fail to LoadConfiguration", ex);
+            }
+        }
 
-                string moduleName = ele.GetAttribute("module");
-                string implClass = ele.GetAttribute("class");
 
-                if (string.IsNullOrEmpty(moduleName))
+        private void LoadSchedule(XmlDocument doc)
+        {
+            try
+            {
+                checkPoints.Clear();
+
+                checkInterval = GetValueInt(doc, "Configuration/Scheduler", "checkInterval", 60, 20, 120);
+
+       
+                XmlNodeList nodeList = doc.SelectNodes("Configuration/Scheduler/CheckPoints/CheckPoint");
+
+                foreach (XmlNode node in nodeList)
                 {
-                    Logger = ObjectHelper.Create<ILogger>(implClass);
-                }
-                else
-                {
-                    Logger = ObjectHelper.Create<ILogger>(moduleName, implClass);
-                }
+                    XmlElement ele = node as XmlElement;
+                    String sModule = ele.GetAttribute("module");
+                    String sClass = ele.GetAttribute("class");
+                    String sParameter = ele.GetAttribute("parameter");
 
-                IsDebugOn = ele.GetAttribute("IsDebugOn").Equals("true", StringComparison.OrdinalIgnoreCase);
+                    Logger.Instance.Info("Loading: Module={0} Class={1} Parameter={2}", sModule, sClass, sParameter);
+
+                    ICheckPoint checkPoint = ObjectHelper.Create<ICheckPoint>(sModule, sClass, sParameter);
+
+                    if (checkPoint != null)
+                    {
+                        checkPoints.Add(checkPoint);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Instance.Error("Fail to LoadSchedule", ex);
+            }
+        }
+
+        public List<ICheckPoint> CheckPoints
+        {
+            get
+            {
+                return checkPoints;
+            }
+        }
+
+        public int CheckInterval
+        {
+            get
+            {
+                return checkInterval;
+            }
+        }
+
+        #region Helper
+        private static int GetValueInt(XmlDocument xmlDoc, string path, string attribute, int defaultValue, int min, int max)
+        {
+            int ret = defaultValue;
+
+            try
+            {
+                XmlElement pathEle = xmlDoc.SelectSingleNode(path) as XmlElement;
+
+                if (pathEle != null)
+                {
+                    string attValue = pathEle.GetAttribute(attribute);
+
+                    if (!(int.TryParse(attValue, out ret) && ret >= min && ret <= max))
+                    {
+                        ret = defaultValue;
+                    }
+                }
             }
             catch (Exception)
             {
-                IsDebugOn = false;
+                ret = defaultValue;
             }
+
+            return ret;
         }
 
-        private List<ICheckPoint> GetCheckPoint()
+        private static string GetValueString(XmlDocument xmlDoc, string path, string attribute, string defaultValue = "")
         {
-            StringBuilder strBuilder = new StringBuilder();
+            string ret = defaultValue;
 
-            List<ICheckPoint> checkPoints = new List<ICheckPoint>();
-            string pathWeekDay = "Scheduler\\WeekDayCheckPoint";
-            string pathRunOnceCheckPoint = "Scheduler\\RunOnceCheckPoint";
-            List<string> names = RegistryWrapper.EnumerateRegName(Registry.LocalMachine, string.Format("{0}\\Scheduler\\WeekDayCheckPoint", ROOT));
-
-            foreach (string name in names)
+            try
             {
-                try
-                {
-                    string hm = GetValueString(pathWeekDay, name);
-                    ICheckPoint checkPoint = new WeekDayCheckPoint(name, hm);
+                XmlElement pathEle = xmlDoc.SelectSingleNode(path) as XmlElement;
 
-                    checkPoints.Add(checkPoint);
-
-                    strBuilder.AppendLine(checkPoint.ToString());
-                }
-                catch (Exception ex)
+                if (pathEle != null)
                 {
-                    Logger.Instance.Error("Failed to load check point: ", ex);
-                    Logger.Instance.Error("CheckPoing: " + pathWeekDay + "/" + name);
+                    string attValue = pathEle.GetAttribute(attribute);
+
+                    if (!string.IsNullOrEmpty(attValue))
+                    {
+                        ret = attValue;
+                    }
                 }
             }
-
-            if (GetValueString(pathRunOnceCheckPoint, "RunOnServiceStartCheckPoint", "").Equals("1"))
+            catch (Exception)
             {
-                RunOnServiceStartCheckPoint runOnServiceStarts = new RunOnServiceStartCheckPoint();
-                checkPoints.Add(runOnServiceStarts);
-                strBuilder.AppendLine(runOnServiceStarts.ToString());
+                ret = defaultValue;
             }
 
-            Logger.Instance.Info(strBuilder.ToString());
-
-            return checkPoints;
+            return ret;
         }
+        #endregion
     }
 }

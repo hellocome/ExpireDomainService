@@ -83,7 +83,7 @@ namespace ExpireDomainService.Core.Schedule
                         if (KeepRunning)
                         {
                             Logger.Instance.Debug("--> SchedulerThread.Sleep()");
-                            Monitor.Wait(locker, TimeSpan.FromMilliseconds(ServiceConfiguration.Instance.SchedulerThreadCheckIntervalSeconds));
+                            Monitor.Wait(locker, TimeSpan.FromMilliseconds(ServiceConfiguration.Instance.CheckInterval));
                             Logger.Instance.Debug("--> SchedulerThread.Sleep.Done()");
                         }
                     }

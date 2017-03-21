@@ -15,6 +15,11 @@ namespace ExpireDomainService.Core.Schedule.CheckPoint
             finished = false;
         }
 
+        public RunOnceCheckPoint(String parameter = null)
+        {
+            finished = false;
+        }
+
         private volatile bool finished;
         public bool Finished
         {

@@ -91,12 +91,42 @@ namespace ExpireDomainService.Core.Schedule.CheckPoint
         {
             Hour = hour;
             Minute = minutes;
+            Second = seconds;
             DayOfWeek = dayOfWeek;
             RunOnce = runOnce;
 
             if (!(hour >= 0 && hour <= 23) || !(minutes >= 0 && minutes <= 59) || !(Second >= 0 && Second <= 59))
             {
                 throw new ArgumentException("Invalid argument: The minute component, expressed as a value between 0 and 59, " + 
+                    "The hour component, expressed as a value between 0 and 23");
+            }
+
+            Update();
+        }
+
+        public WeekDayCheckPoint(String parameter)
+        {
+            string[] hm = parameter.Trim().Split(new char[] { ':' }, 5, StringSplitOptions.RemoveEmptyEntries);
+
+            DayOfWeek dayOfWeek = (DayOfWeek)Enum.Parse(typeof(DayOfWeek), hm[0], true);
+            int hour = int.Parse(hm[1]);
+            int minutes = int.Parse(hm[2]);
+            int seconds = int.Parse(hm[3]);
+
+
+            if (hm.Length > 4)
+            {
+                RunOnce = hm[4].Equals("true", StringComparison.OrdinalIgnoreCase);
+            }
+
+            Hour = hour;
+            Minute = minutes;
+            Second = seconds;
+            DayOfWeek = dayOfWeek;
+
+            if (!(hour >= 0 && hour <= 23) || !(minutes >= 0 && minutes <= 59) || !(Second >= 0 && Second <= 59))
+            {
+                throw new ArgumentException("Invalid argument: The minute component, expressed as a value between 0 and 59, " +
                     "The hour component, expressed as a value between 0 and 23");
             }
 
@@ -132,7 +162,7 @@ namespace ExpireDomainService.Core.Schedule.CheckPoint
             lock (locker)
             {
                 DateTime now = DateTime.Now;
-                DateTime tempDateTime = new DateTime(now.Year, now.Month, now.Day, Hour, Minute, 0);
+                DateTime tempDateTime = new DateTime(now.Year, now.Month, now.Day, Hour, Minute, Second);
 
                 // we don't think about the edge condition like tempDateTime == now etc.
                 // as we will add a run once checkpoint when the service starts. 
