@@ -53,7 +53,6 @@ namespace ExpireDomainService.Pool.Http
 
         void DownloadFileCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
         {
-            Console.WriteLine("");
             if (e.Error == null)
             {
                 Logger.Instance.Info(string.Format("{0}", e.Cancelled ? "Cancelled" : "Done"));
