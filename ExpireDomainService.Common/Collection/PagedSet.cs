@@ -87,9 +87,14 @@ namespace ExpireDomainService.Common.Collection
 
         #region ICollection
 
-        public int Count { get; }
+        public int Count
+        {
+            get
+            {
+                return internalSet.Count;
+            }
+        }
 
-        public bool IsReadOnly { get; }
 
         public void Clear()
         {
