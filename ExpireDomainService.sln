@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpireDomainService.Core", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpireDomainService.Common", "ExpireDomainService.Common\ExpireDomainService.Common.csproj", "{93DB4E6C-059A-4C9D-9EFF-85EA5AA3F5A7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpireDomainService.Pool", "ExpireDomainService.Pool\ExpireDomainService.Pool.csproj", "{11EFFDD0-9ED4-4A52-B4C9-888A40B3F980}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpireDomainService.ConsoleTester", "ExpireDomainService.ConsoleTester\ExpireDomainService.ConsoleTester.csproj", "{C714FC8C-0BB2-40BB-B97F-563BC6C795CB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{93DB4E6C-059A-4C9D-9EFF-85EA5AA3F5A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{93DB4E6C-059A-4C9D-9EFF-85EA5AA3F5A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{93DB4E6C-059A-4C9D-9EFF-85EA5AA3F5A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11EFFDD0-9ED4-4A52-B4C9-888A40B3F980}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11EFFDD0-9ED4-4A52-B4C9-888A40B3F980}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11EFFDD0-9ED4-4A52-B4C9-888A40B3F980}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11EFFDD0-9ED4-4A52-B4C9-888A40B3F980}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C714FC8C-0BB2-40BB-B97F-563BC6C795CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C714FC8C-0BB2-40BB-B97F-563BC6C795CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C714FC8C-0BB2-40BB-B97F-563BC6C795CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C714FC8C-0BB2-40BB-B97F-563BC6C795CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

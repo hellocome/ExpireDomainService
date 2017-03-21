@@ -31,4 +31,7 @@
       <Filter uid="Length_Short_COM" module="ExpireDomainService.Core.dll" class="ExpireDomainService.Core.Domains.Filter.CacheFilters.RegexFullDomainCacheFilter" parameter ="[0-9a-zA-Z]{3,5}\.com"/>
     </CacheFilter>
   </Filters>
+  <Global>
+    <Loader module="ExpireDomainService.Pool.dll" class="ExpireDomainService.Pool.PoolExpireDomainLoader" parameter =""/>
+  </Global>
 </Configuration>

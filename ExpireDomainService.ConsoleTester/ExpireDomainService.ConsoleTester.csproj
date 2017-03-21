@@ -4,15 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{93DB4E6C-059A-4C9D-9EFF-85EA5AA3F5A7}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{C714FC8C-0BB2-40BB-B97F-563BC6C795CB}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ExpireDomainService.Common</RootNamespace>
-    <AssemblyName>ExpireDomainService.Common</AssemblyName>
+    <RootNamespace>ExpireDomainService.ConsoleTester</RootNamespace>
+    <AssemblyName>ExpireDomainService.ConsoleTester</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -30,10 +33,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -44,38 +43,36 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Collection\PagedSet.cs" />
-    <Compile Include="Filter\AbstractFilter.cs" />
-    <Compile Include="Filter\Filters\RegexFilter.cs" />
-    <Compile Include="Filter\Filters\StringParameterFilter.cs" />
-    <Compile Include="Filter\IFilter.cs" />
-    <Compile Include="Filter\IFilterable.cs" />
-    <Compile Include="Loader\ILoader.cs" />
-    <Compile Include="Logging\Logger.cs" />
-    <Compile Include="Reflection\ObjectHelper.cs" />
-    <Compile Include="Scheduler\CheckPoint\RunOnceCheckPoint.cs" />
-    <Compile Include="Scheduler\CheckPoint\RunOnServiceStartCheckPoint.cs" />
-    <Compile Include="Scheduler\CheckPoint\WeekDayCheckPoint.cs" />
-    <Compile Include="Scheduler\ICheckPoint.cs" />
-    <Compile Include="Scheduler\SchedulerThread.cs" />
-    <Compile Include="Utilities\FileHelper.cs" />
-    <Compile Include="Utilities\Temp.cs" />
-    <Content Include="LoggerConfiguration.xml">
-      <SubType>Designer</SubType>
-    </Content>
-    <Compile Include="Logging\ConsoleLogger.cs" />
-    <Compile Include="Logging\ILogger.cs" />
-    <Compile Include="Logging\Log4netLogger.cs" />
-    <Compile Include="Logging\LoggerBase.cs" />
-    <Compile Include="Logging\LoggerConfiguration.cs" />
-    <Compile Include="Logging\LoggerFactory.cs" />
-    <Compile Include="Logging\LogLevel.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\ExpireDomainService.Common\ExpireDomainService.Common.csproj">
+      <Project>{93db4e6c-059a-4c9d-9eff-85ea5aa3f5a7}</Project>
+      <Name>ExpireDomainService.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ExpireDomainService.Core\ExpireDomainService.Core.csproj">
+      <Project>{2a3ee320-920d-45ab-8804-efee2757b42b}</Project>
+      <Name>ExpireDomainService.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ExpireDomainService.Pool\ExpireDomainService.Pool.csproj">
+      <Project>{11effdd0-9ed4-4a52-b4c9-888a40b3f980}</Project>
+      <Name>ExpireDomainService.Pool</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\ExpireDomainService.Common\LoggerConfiguration.xml">
+      <Link>LoggerConfiguration.xml</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\ExpireDomainService.Core\ServiceConfiguration.xml">
+      <Link>ServiceConfiguration.xml</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

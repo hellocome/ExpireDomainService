@@ -8,6 +8,7 @@ using ExpireDomainService.Common.Schedule;
 using ExpireDomainService.Common.Logging;
 using ExpireDomainService.Common.Reflection;
 using ExpireDomainService.Common.Filter;
+using ExpireDomainService.Common.Loader;
 using ExpireDomainService.Core.Domains;
 
 namespace ExpireDomainService.Core
@@ -18,9 +19,12 @@ namespace ExpireDomainService.Core
         private static ServiceConfiguration instance = new ServiceConfiguration();
         private static List<ICheckPoint> checkPoints = new List<ICheckPoint>();
         private static int checkInterval;
+        private static ILoader<ExpireDomainName> domainLoader;
+
 
         private static List<IFilter<ExpireDomainName>> globalDomainLoadFilter = new List<IFilter<ExpireDomainName>>();
         private static List<IFilter<ExpireDomainName>> cacheFilter = new List<IFilter<ExpireDomainName>>();
+       
 
         public static ServiceConfiguration Instance
         {
@@ -47,6 +51,27 @@ namespace ExpireDomainService.Core
                 LoadSchedule(doc);
 
                 LoadFilters(doc);
+
+                LoadDomainLoader(doc);
+            }
+            catch (Exception ex)
+            {
+                Logger.Instance.Error("Fail to LoadConfiguration", ex);
+            }
+        }
+
+        private void LoadDomainLoader(XmlDocument doc)
+        {
+            try
+            {
+
+                XmlElement ele = doc.SelectSingleNode("Configuration/Global/Loader") as XmlElement;
+
+                String sModule = ele.GetAttribute("module");
+                String sClass = ele.GetAttribute("class");
+                String sParameter = ele.GetAttribute("parameter");
+
+                domainLoader = ObjectHelper.Create<ILoader<ExpireDomainName>>(sModule, sClass, sParameter);
             }
             catch (Exception ex)
             {
@@ -140,6 +165,14 @@ namespace ExpireDomainService.Core
             catch (Exception ex)
             {
                 Logger.Instance.Error("Fail to LoadSchedule", ex);
+            }
+        }
+
+        public ILoader<ExpireDomainName> DomainLoader
+        {
+            get
+            {
+                return domainLoader;
             }
         }
 

@@ -8,7 +8,7 @@ using DomainParser.Library;
 
 namespace ExpireDomainService.Core.Domains
 {
-    public sealed class ExpireDomainName : DomainParser.Library.DomainName
+    public sealed class ExpireDomainName : DomainParser.Library.DomainName, IComparable<ExpireDomainName>
     {
         public string FullDomainName
         {
@@ -42,6 +42,27 @@ namespace ExpireDomainService.Core.Domains
         {
             FullDomainName = fullDomainName;
             ExpireDate = DateTime.Parse(expireDate, CultureInfo.GetCultureInfo("en-us"));
+        }
+
+        public int CompareTo(ExpireDomainName other)
+        {
+            if(other == null || string.IsNullOrEmpty(other.SLD))
+            {
+                return -1;
+            }
+            else if (string.IsNullOrEmpty(this.SLD))
+            {
+                return 1;
+            }
+
+            int res = this.SLD.Length.CompareTo(other.SLD.Length);
+
+            if(res == 0)
+            {
+                res = this.SLD.CompareTo(other.SLD);
+            }
+
+            return res;
         }
     }
 }
