@@ -12,7 +12,7 @@ namespace ExpireDomainService.ConsoleTester
     {
         static void Main(string[] args)
         {
-            DomainNameManager manager = new DomainNameManager();
+            DomainNameProvider manager = new DomainNameProvider();
             manager.SetLoader(ServiceConfiguration.Instance.DomainLoader);
             manager.BuildCache();
         }

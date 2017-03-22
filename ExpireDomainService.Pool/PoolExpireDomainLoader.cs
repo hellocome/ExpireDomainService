@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using ExpireDomainService.Common.Logging;
 using ExpireDomainService.Common.Utilities;
@@ -15,7 +12,6 @@ namespace ExpireDomainService.Pool
     public sealed class PoolExpireDomainLoader : ILoader<ExpireDomainName>
     {
         private static readonly string DOWNLOAD_URL = "http://www.pool.com/Downloads/PoolDeletingDomainsList.zip";
-        private Temp temp = new Temp();
         private List<string> poolDeletingDomains = new List<string>();
         private volatile int index = 0;
 

@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Globalization;
 using DomainParser.Library;
 
 namespace ExpireDomainService.Core.Domains
 {
-    public sealed class ExpireDomainName : DomainParser.Library.DomainName, IComparable<ExpireDomainName>
+    [Serializable]
+    public sealed class ExpireDomainName : DomainName, IComparable<ExpireDomainName>
     {
         public string FullDomainName
         {

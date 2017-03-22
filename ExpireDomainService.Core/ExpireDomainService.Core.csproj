@@ -61,7 +61,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Domains\DomainNameManager.cs" />
+    <Compile Include="Domains\DomainNameServiceAdapter.cs" />
+    <Compile Include="Domains\DomainNameProvider.cs" />
     <Compile Include="Domains\ExpireDomainName.cs" />
     <Compile Include="Domains\Filter\CacheFilters\RegexDomainNameCacheFilter.cs" />
     <Compile Include="Domains\Filter\CacheFilters\RegexFullDomainCacheFilter.cs" />
@@ -70,11 +71,12 @@
     <Compile Include="Domains\Filter\GlobalDomainNameLengthLoadFilter.cs" />
     <Compile Include="Domains\Filter\GlobalDomainLoadFilter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SearchService\IDomainNameSearchService.cs" />
+    <Compile Include="SearchService\IDomainNameSearchServiceProvider.cs" />
     <Compile Include="ServiceConfiguration.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scheduler\" />
-    <Folder Include="SearchEngine\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ExpireDomainService.Common\ExpireDomainService.Common.csproj">

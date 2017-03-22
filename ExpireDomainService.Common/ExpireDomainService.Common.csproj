@@ -53,6 +53,8 @@
     <Compile Include="Filter\IFilterable.cs" />
     <Compile Include="Loader\ILoader.cs" />
     <Compile Include="Logging\Logger.cs" />
+    <Compile Include="Patterns\AbstractObserable.cs" />
+    <Compile Include="Patterns\AbstractObserver.cs" />
     <Compile Include="Reflection\ObjectHelper.cs" />
     <Compile Include="Scheduler\CheckPoint\RunOnceCheckPoint.cs" />
     <Compile Include="Scheduler\CheckPoint\RunOnServiceStartCheckPoint.cs" />
@@ -82,9 +84,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="WinService\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
