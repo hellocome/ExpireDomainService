@@ -95,7 +95,6 @@ namespace ExpireDomainService.Common.Collection
             }
         }
 
-
         public void Clear()
         {
             internalSet.Clear();

@@ -34,7 +34,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,8 +50,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\CompositeType.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="WCF\IExpireDomainWCFService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WCF\ExpireDomainWCFService.cs" />
+    <Compile Include="ExpireDomainServiceManager.cs" />
+    <Compile Include="WinService\ExpireDomainWinService.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WinService\ExpireDomainWinServiceInstaller.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -69,6 +84,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ExpireDomainService.Common\ExpireDomainService.Common.csproj">
+      <Project>{93db4e6c-059a-4c9d-9eff-85ea5aa3f5a7}</Project>
+      <Name>ExpireDomainService.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ExpireDomainService.Core\ExpireDomainService.Core.csproj">
+      <Project>{2a3ee320-920d-45ab-8804-efee2757b42b}</Project>
+      <Name>ExpireDomainService.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

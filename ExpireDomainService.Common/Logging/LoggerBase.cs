@@ -19,7 +19,12 @@ namespace ExpireDomainService.Common.Logging
         {
             InternalFormatProvider = null;
         }
-        
+
+        public void SetDebugMode(bool turnOn)
+        {
+            IsDebugOn = turnOn;
+        }
+
         public virtual IFormatProvider FormatProvider
         {
             get

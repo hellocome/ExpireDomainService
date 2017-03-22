@@ -9,6 +9,7 @@ namespace ExpireDomainService.Common.Logging
     public interface ILogger
     {
         bool IsDebugOn { get; }
+        void SetDebugMode(bool turnOn);
         void Error(string logContent);
         void Error(string logContent, Exception ex);
         void Error(Exception ex);

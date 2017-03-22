@@ -24,15 +24,15 @@ namespace ExpireDomainService.Common.Schedule
         {
             try
             {
-                Logger.Instance.Info(string.Format("Starting DHLParcelShopFinder Scheduler thread..."));
+                Logger.Instance.Info(string.Format("Starting Scheduler thread..."));
 
                 thread.Start();
 
-                Logger.Instance.Info(string.Format("DHLParcelShopFinder Scheduler thread is started!"));
+                Logger.Instance.Info(string.Format("Scheduler thread is started!"));
             }
             catch (Exception ex)
             {
-                Logger.Instance.Error("Failed to start DHLParcelShopFinder Scheduler thread", ex);
+                Logger.Instance.Error("Failed to start Scheduler thread", ex);
             }
         }
 
