@@ -73,6 +73,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SearchService\IDomainNameSearchService.cs" />
     <Compile Include="SearchService\IDomainNameSearchServiceProvider.cs" />
+    <Compile Include="SearchService\SearchServiceProviderFactory.cs" />
     <Compile Include="ServiceConfiguration.cs" />
   </ItemGroup>
   <ItemGroup>
