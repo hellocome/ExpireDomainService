@@ -30,6 +30,12 @@
       <Filter uid="Length_Short_COM" module="ExpireDomainService.Core.dll" class="ExpireDomainService.Core.Domains.Filter.CacheFilters.RegexFullDomainCacheFilter" parameter ="^[0-9a-zA-Z]{3,4}\.com$"/>
     </CacheFilter>
   </Filters>
+
+  <SearchServiceProvider module="ExpireDomainService.SearchServiceProvider.dll" class="ExpireDomainService.SearchServiceProvider.SimpleDomainNameSearchServiceProvider" >
+    <DomainNameSearchService module="ExpireDomainService.SearchServiceProvider.dll" 
+              class="ExpireDomainService.SearchServiceProvider.SimpleDomainNameSearchService" 
+              cacheSize = "5000"/>
+  </SearchServiceProvider>
   <Global>
     <Loader module="ExpireDomainService.Pool.dll" class="ExpireDomainService.Pool.PoolExpireDomainLoader" parameter =""/>
   </Global>

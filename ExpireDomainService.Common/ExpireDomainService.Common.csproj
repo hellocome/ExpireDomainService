@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Collection\PagedSet.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Filter\AbstractFilter.cs" />
     <Compile Include="Filter\Filters\RegexFilter.cs" />
     <Compile Include="Filter\Filters\StringParameterFilter.cs" />

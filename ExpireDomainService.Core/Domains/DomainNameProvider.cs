@@ -14,7 +14,6 @@ namespace ExpireDomainService.Core.Domains
 {
     public sealed class DomainNameProvider : AbstractObserable<Dictionary<string, PagedSet<ExpireDomainName>>>
     {
-        public static readonly string GLOBAL = "GLOBAL";
         private Dictionary<string, PagedSet<ExpireDomainName>> CacheDictionary = new Dictionary<string, PagedSet<ExpireDomainName>>();
         private ILoader<ExpireDomainName> mLoader = null;
         private readonly IList<IFilter<ExpireDomainName>> globalDomainLoadFilters = null;
@@ -69,7 +68,7 @@ namespace ExpireDomainService.Core.Domains
                     }
                 }
 
-                CacheDictionary[GLOBAL] = global;
+                CacheDictionary[ServiceConfiguration.GLOBAL] = global;
 
 
                 foreach (string uid in CacheDictionary.Keys)

@@ -15,6 +15,7 @@ namespace ExpireDomainService.Core
 {
     public class ServiceConfiguration
     {
+        public static readonly string GLOBAL = "GLOBAL";
         public static readonly string CONFIGURATION_FILE = "ServiceConfiguration.xml";
         private static List<ICheckPoint> checkPoints = new List<ICheckPoint>();
         private static int checkInterval;
