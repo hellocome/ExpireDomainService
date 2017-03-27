@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace ExpireDomainService.Common.Extensions
@@ -10,7 +10,8 @@ namespace ExpireDomainService.Common.Extensions
     {
         public static string RemoveSpace(this string input)
         {
-            return new string(input.ToCharArray().Where(c => !Char.IsWhiteSpace(c)).ToArray());
+            // new string(input.ToCharArray().Where(c => !Char.IsWhiteSpace(c)).ToArray())
+            return Regex.Replace(input, @"\s", "");
         }
     }
 }
